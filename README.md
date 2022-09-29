@@ -1,5 +1,5 @@
 # Kneedle
-A fast approach to get array items after a knee point (clockwise)
+A fast approach to get array items after a knee point (clockwise) for S = 1.0
 
 ------------
 
