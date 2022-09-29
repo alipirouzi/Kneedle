@@ -13,21 +13,23 @@ public static class KneedleAlgorithm
     {
         var itemsOrdered = topics.OrderBy(t => t.Probability).ToArray();
         var arraySize = itemsOrdered.Length;
-        var maxMinValue = float.MaxValue;
-        float xY;
-        float distanceFromXy;
+        if (arraySize == 1)
+            return itemsOrdered[0].Probability;
+        var previousDistanceFromXy = float.MaxValue;
+        float xy;
+        float currentDistanceFromXy;
         var kneepoint = 0;
-        for (int i = 0; i < arraySize; i++)
+        for (var i = 0; i < arraySize; i++)
         {
-            xY = (i + 1) / (float)arraySize;
-            distanceFromXy = Math.Abs(itemsOrdered[i].Probability - xY);
-            if (distanceFromXy < maxMinValue)
+            xy = (i + 1) / (float)arraySize;
+            currentDistanceFromXy = Math.Abs(itemsOrdered[i].Probability - xy);
+            if (currentDistanceFromXy < previousDistanceFromXy && i != 0)
             {
-                maxMinValue = distanceFromXy;
                 kneepoint = i;
+                break;
             }
+            previousDistanceFromXy = currentDistanceFromXy;
         }
         return itemsOrdered[kneepoint].Probability;
     }
-
 }
